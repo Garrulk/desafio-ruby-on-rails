@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Transactions</h1>
+
+<form action="/transaction/import" enctype="multipart/form-data" method="post">
+  <fieldset>
+    <legend>Arquivo</legend>
+    <input type="file" id="file">
+    <input type="submit" value="Enviar">
+  </fieldset>
+</form>
+
+<table>
+  <thead>
+    <tr>
+      <th>Kind</th>
+      <th>Transaction date</th>
+      <th>Value</th>
+      <th>Cpf</th>
+      <th>Card number</th>
+      <th>Transaction hour</th>
+      <th>Store owner</th>
+      <th>Store name</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @transactions.each do |transaction| %>
+      <tr>
+        <td><%= transaction.kind %></td>
+        <td><%= transaction.transaction_date %></td>
+        <td><%= transaction.value %></td>
+        <td><%= transaction.cpf %></td>
+        <td><%= transaction.card_number %></td>
+        <td><%= transaction.transaction_hour %></td>
+        <td><%= transaction.store_owner %></td>
+        <td><%= transaction.store_name %></td>
+        <td><%= link_to 'Show', transaction %></td>
+        <td><%= link_to 'Edit', edit_transaction_path(transaction) %></td>
+        <td><%= link_to 'Destroy', transaction, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Transaction', new_transaction_path %>

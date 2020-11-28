@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Kind:</strong>
+  <%= @transaction.kind %>
+</p>
+
+<p>
+  <strong>Transaction date:</strong>
+  <%= @transaction.transaction_date %>
+</p>
+
+<p>
+  <strong>Value:</strong>
+  <%= @transaction.value %>
+</p>
+
+<p>
+  <strong>Cpf:</strong>
+  <%= @transaction.cpf %>
+</p>
+
+<p>
+  <strong>Card number:</strong>
+  <%= @transaction.card_number %>
+</p>
+
+<p>
+  <strong>Transaction hour:</strong>
+  <%= @transaction.transaction_hour %>
+</p>
+
+<p>
+  <strong>Store owner:</strong>
+  <%= @transaction.store_owner %>
+</p>
+
+<p>
+  <strong>Store name:</strong>
+  <%= @transaction.store_name %>
+</p>
+
+<%= link_to 'Edit', edit_transaction_path(@transaction) %> |
+<%= link_to 'Back', transactions_path %>
