@@ -8,7 +8,33 @@ class TransactionsController < ApplicationController
   end
 
   def import
+    errors = []
+    file = params["txt"].tempfile.path
+    File.open(file).each do |row|
+      begin
 
+        kind = row[0].strip rescue row[0]
+        transaction_date = row[1..8].strip rescue row[1..8]
+        value = row[9..18].strip rescue row[9..18]
+        cpf = row[19..29].strip rescue row[19..29]
+        card_number = row[30..41].strip rescue row[30..41]
+        transaction_hour = row[42..47].strip rescue row[42..47]
+        store_owner = row[48..61].strip rescue row[48..61]
+        store_name = row[62..80].strip rescue row[62..80]
+        Transaction.create(kind: kind, transaction_date: transaction_date, value: value, cpf: cpf,
+                           card_number: card_number, transaction_hour: transaction_hour, store_owner: store_owner,
+                           store_name: store_name)
+      rescue Exception => err
+        errors << err.message
+      end
+    end
+
+    if errors.blank?
+      flash[:succees] = "Importado com sucesso"
+    else
+      flash[:error] = errors.join(", ")
+    end
+    redirect_to "/transactions"
   end
 
   # GET /transactions/1

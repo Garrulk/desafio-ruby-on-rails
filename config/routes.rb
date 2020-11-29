@@ -2,5 +2,5 @@ Rails.application.routes.draw do
   resources :transactions
   root to: "transactions#index"
 
-  get "/transaction/import", to: "transaction#import"
+  post "/transaction/import", to: "transactions#import"
 end
