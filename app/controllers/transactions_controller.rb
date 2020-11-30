@@ -4,10 +4,12 @@ class TransactionsController < ApplicationController
   # GET /transactions
   # GET /transactions.json
   def index
-    @transactions = Transaction.all
+    byebug
+    @transactions = Transaction.all.sort_by(&:store_name)
   end
 
   def import
+
     errors = []
     file = params["txt"].tempfile.path
     File.open(file).each do |row|
@@ -15,12 +17,14 @@ class TransactionsController < ApplicationController
 
         kind = row[0].strip rescue row[0]
         transaction_date = row[1..8].strip rescue row[1..8]
-        value = row[9..18].strip rescue row[9..18]
+        value = row[9..18].strip.to_f/100 rescue row[9..18]
         cpf = row[19..29].strip rescue row[19..29]
         card_number = row[30..41].strip rescue row[30..41]
-        transaction_hour = row[42..47].strip rescue row[42..47]
+        hour = row[42..47].strip
+        transaction_hour = convert_time(hour) rescue row[42..47]
         store_owner = row[48..61].strip rescue row[48..61]
         store_name = row[62..80].strip rescue row[62..80]
+
         Transaction.create(kind: kind, transaction_date: transaction_date, value: value, cpf: cpf,
                            card_number: card_number, transaction_hour: transaction_hour, store_owner: store_owner,
                            store_name: store_name)
@@ -40,6 +44,7 @@ class TransactionsController < ApplicationController
   # GET /transactions/1
   # GET /transactions/1.json
   def show
+
   end
 
   # GET /transactions/new
@@ -101,4 +106,8 @@ class TransactionsController < ApplicationController
     def transaction_params
       params.require(:transaction).permit(:kind, :transaction_date, :value, :cpf, :card_number, :transaction_hour, :store_owner, :store_name)
     end
+
+  def convert_time(time)
+    time[0,2]+":"+time[2,2]+":"+time[4,4]
+  end
 end

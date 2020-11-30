@@ -18,10 +18,10 @@ ActiveRecord::Schema.define(version: 2020_11_28_163431) do
   create_table "transactions", force: :cascade do |t|
     t.integer "kind"
     t.date "transaction_date"
-    t.decimal "value"
+    t.float "value"
     t.string "cpf"
     t.string "card_number"
-    t.time "transaction_hour"
+    t.string "transaction_hour"
     t.string "store_owner"
     t.string "store_name"
     t.datetime "created_at", precision: 6, null: false
