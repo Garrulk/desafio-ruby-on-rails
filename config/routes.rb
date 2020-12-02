@@ -3,4 +3,5 @@ Rails.application.routes.draw do
   root to: "transactions#index"
 
   post "/transaction/import", to: "transactions#import"
+  get "/transaction/balance", to: "transactions#balance"
 end

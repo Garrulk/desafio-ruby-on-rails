@@ -4,7 +4,6 @@ class TransactionsController < ApplicationController
   # GET /transactions
   # GET /transactions.json
   def index
-    byebug
     @transactions = Transaction.all.sort_by(&:store_name)
   end
 
@@ -44,7 +43,6 @@ class TransactionsController < ApplicationController
   # GET /transactions/1
   # GET /transactions/1.json
   def show
-
   end
 
   # GET /transactions/new
@@ -94,6 +92,10 @@ class TransactionsController < ApplicationController
       format.html { redirect_to transactions_url, notice: 'Transaction was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def balance
+    @transactions = Transaction.all
   end
 
   private
