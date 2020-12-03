@@ -50,3 +50,6 @@
 <% unless @transactions.blank? %>
 <%= link_to 'View Balance', transaction_balance_path %>
 <% end %>
+<br><br>
+ <%= link_to('Logout', destroy_user_session_path, method: :delete) %>
+
