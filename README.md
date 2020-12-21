@@ -19,6 +19,8 @@
 * Rubocop
 * Rspec-rails
 * pg
+* FFaker
+* FactoryBot
 
 # Para rodar a aplicação em localhost
 
